@@ -10,19 +10,18 @@ function Article (opts) {
   this.publishedOn = opts.publishedOn;
   this.body = opts.body;
 }
-
+// var template =
 Article.prototype.toHtml = function() { //creates a new method toHtml for all article objs
   var $newArticle = $('article.template').clone(); //clones articles and all descendants within HTML
 
+  // DONE: This cloned article is no longer a template, so we should remove that class...
+  $newArticle.removeClass('template');
   $newArticle.attr('data-category', this.category); //assigns clone a custon attribute of data-category and assigns
 
   // DONE: Use jQuery to fill in the template with properties
   // from this particular Article instance. We need to fill in:
   // the author name and url, the article title and body, and the
   // publication date.
-  // var h1 = $('h1');
-  // $newArticle.h1.text(this.title);
-  // console.log('var method worked');
   $newArticle.find('h1').text(this.title);
   console.log('find method worked');
   $newArticle.find('a').text(this.author);
@@ -32,13 +31,9 @@ Article.prototype.toHtml = function() { //creates a new method toHtml for all ar
   $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
 
   // Display the date as a relative number of "days ago":
-  $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000) + ' days ago');
+  $newArticle.find('time').text('about ' + parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000) + ' days ago');
 
   $newArticle.append('<hr>');
-
-  // DONE: This cloned article is no longer a template, so we should remove that class...
-  $newArticle.find('article').removeClass('template');
-
   return $newArticle;
 };
 
@@ -49,7 +44,7 @@ rawData.sort(function(a,b) {
 rawData.forEach(function(ele) {
   articles.push(new Article(ele));
 });
-
+debugger;
 articles.forEach(function(a){
   $('#articles').append(a.toHtml());
   console.log(a.toHtml().html());
