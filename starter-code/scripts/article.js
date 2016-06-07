@@ -20,12 +20,15 @@ Article.prototype.toHtml = function() { //creates a new method toHtml for all ar
   // from this particular Article instance. We need to fill in:
   // the author name and url, the article title and body, and the
   // publication date.
-  $newArticle.$('h1').text(this.title);
-  $newArticle.$('a').text(this.author);
-  $newArticle.$('a').attr('href', this.authorUrl);
-  $newArticle.$('time').text(this.publishedOn);
-  $newArticle.$('section.article-body').text(this.body);
-  // Include the publication date as a 'title' attribute to show on hover:
+  // var h1 = $('h1');
+  // $newArticle.h1.text(this.title);
+  // console.log('var method worked');
+  $newArticle.find('h1').text(this.title);
+  console.log('find method worked');
+  $newArticle.find('a').text(this.author);
+  $newArticle.find('a').attr('href', this.authorUrl);
+  $newArticle.find('section.article-body').html(this.body);
+  //Include the publication date as a 'title' attribute to show on hover:
   $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
 
   // Display the date as a relative number of "days ago":
@@ -34,7 +37,7 @@ Article.prototype.toHtml = function() { //creates a new method toHtml for all ar
   $newArticle.append('<hr>');
 
   // DONE: This cloned article is no longer a template, so we should remove that class...
-  $newArticle.$('article').removeClass('template');
+  $newArticle.find('article').removeClass('template');
 
   return $newArticle;
 };
@@ -49,4 +52,5 @@ rawData.forEach(function(ele) {
 
 articles.forEach(function(a){
   $('#articles').append(a.toHtml());
+  console.log(a.toHtml().html());
 });
