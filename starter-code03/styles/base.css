@@ -22,11 +22,16 @@ address {
   display: inline-block;
 }
 
+li {
+  list-style-type: none;
+}
+
 /*LINK STYLES
 =======================================*/
 
 a, a:link, a:active {
   color: #777;
+  text-decoration: none;
 }
 
 a:hover, a:focus {
