@@ -2,9 +2,10 @@
 var articleView = {};
 var $article = $('article');
 
+//Create a function to populate filter options
 articleView.populateFilters = function() {
   console.log('I called populateFilters');
-
+  //For each article element in the page
   $article.each(function() {
     //for all articles but the class = template article
     if (!$(this).hasClass('template')) {
@@ -18,6 +19,7 @@ articleView.populateFilters = function() {
       //Avoid duplicates! We don't want to append the category name if the select already has this category as an option!
       val = $(this).attr('data-category');
       optionTag = '<option value="' + val + '">' + val + '</option>';
+      //If the category filter value does not yet exist
       if ($('#category-filter option[value="' + val + '"]').length === 0) {
         $('#category-filter').append(optionTag);
       }
@@ -25,12 +27,16 @@ articleView.populateFilters = function() {
   });
 };
 
+//Declare function handle author filter
 articleView.handleAuthorFilter = function() {
   console.log('I called handleAuthorFilter');
+  //Add event listener to author filter, when dropdown changes
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
       // DONE: If the select box was changed to an option that has a value, we need to hide all the articles, and then show just the ones that match for the author that was selected. Use an "attribute selector" to find those articles, and fade them in for the reader.
+      //Hide all articles
       $article.hide();
+      //Only show the articles which have a data-author that matches the filtered value
       $article.filter('[data-author="' + $(this).val() + '"]').show();
 
     } else {
@@ -38,6 +44,7 @@ articleView.handleAuthorFilter = function() {
       $article.filter("[class!='template']").show();
       console.log('Show all articles except the template');
     }
+    //Make the other filter blank
     $('#category-filter').val('');
   });
 };
@@ -46,19 +53,26 @@ articleView.handleAuthorFilter = function() {
 
 articleView.handleCategoryFilter = function() {
   console.log('I called handleCategoryFilter');
+  //When category-filter form is changed...
   $('#category-filter').on('change', function() {
+    //If the selected option's value exists
     if ($(this).val()) {
+      //Hide all articles
       $article.hide();
+      //Show only articles whos data category value matches the chose value from the drop down
       $article.filter('[data-category="' + $(this).val() + '"]').show();
 
     } else {
+      // DONE: If the select box was changed to an option that is blank, we should show all the articles, except the one article we are using as a template.
       $article.filter("[class!='template']").show();
       console.log('Show all articles except the template');
     }
+    //Make the other filter blank
     $('#author-filter').val('');
   });
 };
 
+//Declare function handleMainNav
 articleView.handleMainNav = function() {
   console.log('I called handleMainNav');
   // DONE: Add an event handler to .main-nav element that will power the Tabs feature.
@@ -66,21 +80,25 @@ articleView.handleMainNav = function() {
   //So: You need to dynamically build a selector string with the correct ID, based on the data available to you on the .tab element that was clicked.
   $('.main-nav .tab').on('click', function(){
     $('.tab-content').hide();
-    var tabSection = $(this).attr('data-content');
-    $('#' + tabSection).show();
+    //.tab-content ID matches the .tab data-content property
+    $('#' + $(this).attr('data-content')).show();
   });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
 
+//Declare setTeasers function
 articleView.setTeasers = function() {
   console.log('I called setTeasers');
-  $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any article body.
+  $('.article-body *:nth-of-type(n+2)').hide(); // Hide section child elements beyond the first 2 in any article body.
+  //Add event listener to .read-on
   $('.read-on').on('click', function(e){
+    //Prevent reload of page
     e.preventDefault();
     console.log($(this).prev());
+    //Show all children elements of the clicked section readon
     $(this).prev().children().show();
-    // $('.article-body').show();
+    //Hide the read on
     $(this).hide();
   });
 
