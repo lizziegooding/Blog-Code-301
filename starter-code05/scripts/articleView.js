@@ -113,11 +113,10 @@ articleView.create = function() {
   // TODO: Activate the highlighting of any code blocks:
   //Find each <pre><code> tag in the output jQuery element
 
-  // $('#articles-preview').find('pre code').each(function(i, block) {
-
+  $('#articles-preview').find('pre code').each(function(i, block) {
     //Apply highlighting to each block it finds. Returns an object with language, relevance, value (HTML string), and top properties; value HTML string is then rendered in the DOM
-    // hljs.highlightBlock(block); // Syntax-highlight each code block "in place"
-  // });
+    hljs.highlightBlock(block); // Syntax-highlight each code block "in place"
+  });
   // TODO: Export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
   // var mObj = {
   //   'm' : newArticle.body
