@@ -78,3 +78,8 @@ input:invalid, textarea:invalid {
 input:valid, textarea:valid {
   border-color: #89CB8E;
 }
+
+#article-json {
+  height: 5em;
+  border-color: #89CB8E; 
+}
