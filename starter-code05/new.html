@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/modules.css">
     <link rel="stylesheet" href="vendor/styles/railscasts.css">
-
+    <!-- Handlebars template -->
     <script id="article-template" type="text/x-handlebars-template">
       <article
         class="clearfix"
@@ -39,6 +39,7 @@
       <nav class="main-nav">
         <div class="icon-menu"></div>
         <ul>
+          <!-- Write and Preview buttons -->
           <li class="tab" data-content="write"><a href="#" class="icon-home"> Write</a></li>
           <li class="tab" data-content="articles"><a href="#" class="icon-home"> Preview</a></li>
         </ul>
@@ -67,9 +68,11 @@
           </label>
         </form>
       </section>
-      <section id="articles" class="tab-content">
+      <!-- Preview what markdown article will look like -->
+      <section id="articles-preview" class="tab-content">
 
       </section>
+      <!-- Create an empty form which we'll populate with JSON -->
       <section id="article-export">
         <label id="export-field" for="article-json" class="pull-right">
           <input type="text" readonly id="article-json">
@@ -84,11 +87,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
     <!-- DONE: Include script tags for 3rd party libraries to enable markdown rendering and code syntax highlighting -->
-    <script src="/vendor/scripts/marked.js"></script>
-    <script src="/vendor/scripts/highlight.pack.js"></script>
-
-    <script src="/scripts/article.js"></script>
-    <script src="/scripts/articleView.js"></script>
+    <script src="vendor/scripts/marked.js"></script>
+    <script src="vendor/scripts/highlight.pack.js"></script>
+    <script src="scripts/article.js"></script>
+    <script src="scripts/articleView.js"></script>
     <script>
       // DONE: Initialize page behaviors, and run code:
       articleView.initNewArticlePage();
