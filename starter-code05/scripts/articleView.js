@@ -73,8 +73,8 @@ articleView.initNewArticlePage = function() {
   //Find article template
   var articleTemplate = $('#article-template').html();
   //Use handlebars built in function to compile template; what's returned is a function
-  var compiledTemplate = Handlebars.compile(articleTemplate);
-  $('input, text').on('input', articleView.create());
+  compiledTemplate = Handlebars.compile(articleTemplate);
+  $('input, textarea').on('input', articleView.create);
 };
 
 articleView.create = function() {
@@ -89,13 +89,21 @@ articleView.create = function() {
   newArticle.authorUrl = $('#article-author-url').val();
   newArticle.title = $('#article-title').val();
   newArticle.category = $('#article-category').val();
-  newArticle.publishedOn = $('#article-published').val();
   newArticle.body = marked($('#article-body').val());
+  newArticle.publishStatus = $('#article-published').val();
+  if ($('#article-published:checked').length === 0){
+    newArticle.publishStatus = 'draft';
+    console.log('draft');
+  }
+  else {
+    newArticle.publishStatus = 'published';
+    console.log('published');
+  }
   // console.log(newArticle);
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-  //Pass the compiled template function the data object; returns a string of html
-  var html = compiledTemplate(data);
-
+  // Pass the compiled template function the data object; returns a string of html
+  var html = compiledTemplate(newArticle);
+  $('#articles-preview').append(html);
   // myArticle = new Article(newArticle);
   // $('#articles-preview').append(myArticle.toHtml());
   //Push new article to the articles array defined in blogArticles.js
