@@ -40,13 +40,12 @@ Article.fetchAll = function() {
     // When rawData is already in localStorage, we can load it by calling the .loadAll function, and then render the index page (using the proper method on the articleView object).
     var retrieveData = JSON.parse(localStorage.dataJSON);
     console.table('Retrieved from localStorage: ', retrieveData);
-    //TODO: What do we pass in here to the .loadAll function?
+    //DONE: What do we pass in here to the .loadAll function?
     Article.loadAll(retrieveData);
-    //TODO: Change this fake method call to the correct one that will render the index page.
+    //DONE: Change this fake method call to the correct one that will render the index page.
     articleView.initIndexPage();
   } else {
-    // TODO: When we don't already have the rawData in local storage, we need to get it from the JSON file, which simulates data on a remote server. Run live-server or pushstate-server! Please do NOT browse to your HTML file(s) using a "file:///" link. RUN A SERVER INSTEAD!!
-    // WILL NEED TO ADD IPSUM ARTICLES AS WELL
+    // DONE: When we don't already have the rawData in local storage, we need to get it from the JSON file, which simulates data on a remote server. Run live-server or pushstate-server! Please do NOT browse to your HTML file(s) using a "file:///" link. RUN A SERVER INSTEAD!!
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
     $.getJSON('data/ipsumArticles.json')
       .done(parseData)
@@ -56,9 +55,7 @@ Article.fetchAll = function() {
 
     function parseData(data){
       console.log('From AJAX: ', data);
-      // dataJS = JSON.parse(data);
       dataJSON = data;
-      // console.log(dataJS);
       // 2. Store the resulting JSON data with the .loadAll method,
       Article.loadAll(dataJSON);
       // 3. Cache the data in localStorage so next time we won't enter this "else" block (avoids hitting the server),
