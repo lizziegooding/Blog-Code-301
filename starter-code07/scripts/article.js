@@ -58,7 +58,7 @@ Article.fetchAll = function(a) {
   }
 };
 
-// TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
+// DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
 Article.numWordsAll = function() {
   return Article.all.map(function(article) {
     console.log(Article.all.body.split(' ').length);
@@ -76,7 +76,13 @@ Article.allAuthors = function() {
 
   // For our `reduce` -- since we are trying to return an array, we'll need to specify an accumulator type...
   // what data type should this accumulator be and where is it placed?
-  return whatShouldIReturn;
+  return Article.all.map(function(article) {
+    return Article.all.author;
+  })
+  .reduce(function(p, c) {
+    if (p.indexOf(c) < 0) p.push(c);
+    return p;
+  }, []);
 };
 
 Article.numWordsByAuthor = function() {
