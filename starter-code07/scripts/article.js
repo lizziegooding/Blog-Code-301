@@ -69,15 +69,16 @@ Article.numWordsAll = function() {
   });
 };
 
-// TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
+// DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names.
 Article.allAuthors = function() {
   // Read docs on .map and .reduce! You can reference the previous
   // `map` in the numWordsAll method to get started here.
 
   // For our `reduce` -- since we are trying to return an array, we'll need to specify an accumulator type...
   // what data type should this accumulator be and where is it placed?
+
   return Article.all.map(function(article) {
-    return Article.all.author;
+    return article.author;
   })
   .reduce(function(p, c) {
     if (p.indexOf(c) < 0) p.push(c);
@@ -90,9 +91,36 @@ Article.numWordsByAuthor = function() {
   // the author's name, and one for the total number of words across the matching articles
   // written by the specified author.
   return Article.allAuthors().map(function(author) {
+    //   console.log(Article.all
+    //     .filter(function(obj) {
+    //       return obj.author === author;
+    //     })
+    //     .map(function(obj) {
+    //       return obj.body;
+    //     })
+    //     .map(function(ele) {
+    //       return ele.split(' ').length;
+    //     })
+    //     .reduce(function(a, b) {
+    //       return a + b;
+    //     })
+    // );
     return {
-      // name:
-      // numWords: someCollection.someArrayMethod().map(...).reduce(...), ...
+      name: author,
+      numWords: Article.all
+          .filter(function(obj) {
+            return obj.author === author;
+          })
+          .map(function(obj) {
+            return obj.body;
+          })
+          .map(function(ele) {
+            return ele.split(' ').length;
+          })
+          .reduce(function(a, b) {
+            return a + b;
+          }),
     };
-  });
+  }
+  ); // someCollection.someArrayMethod().map(...).reduce(...), ...
 };
