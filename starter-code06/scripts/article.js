@@ -36,27 +36,35 @@ Article.loadAll = function(rawData) {
 
 // This function will retrieve the data from either a local or remote source, and process it, then hand off control to the View.
 Article.fetchAll = function() {
-  if (localStorage.rawData) {
+  if (localStorage.dataJSON) {
     // When rawData is already in localStorage, we can load it by calling the .loadAll function, and then render the index page (using the proper method on the articleView object).
+    var retrieveData = JSON.parse(localStorage.dataJSON);
+    console.table('Retrieved from localStorage: ', retrieveData);
     //TODO: What do we pass in here to the .loadAll function?
-    Article.loadAll(JSON.parse(localStorage.rawData));
+    Article.loadAll(retrieveData);
     //TODO: Change this fake method call to the correct one that will render the index page.
     articleView.initIndexPage();
   } else {
     // TODO: When we don't already have the rawData in local storage, we need to get it from the JSON file, which simulates data on a remote server. Run live-server or pushstate-server! Please do NOT browse to your HTML file(s) using a "file:///" link. RUN A SERVER INSTEAD!!
     // WILL NEED TO ADD IPSUM ARTICLES AS WELL
-    // Article.loadAll(JSON.parse(hackerIpson.json));
     // 1. Retrieve the JSON file from the server with AJAX (which jQuery method is best for this?),
-    $.getJSON('hackerIpsum.json', function(data){
-      var dataJS = JSON.parse(data);
-    })
-    .fail(function() { console.log('Problem with data!'); })
-    .always(function() { console.log('Try to get JSON data from server.'); });
-    // 2. Store the resulting JSON data with the .loadAll method,
-    Article.loadAll(dataJS);
-    // 3. Cache the data in localStorage so next time we won't enter this "else" block (avoids hitting the server),
-    localStorage.dataJS = dataJS;
-    // 4. Render the index page (perhaps with an articleView method?).
-    articleView.initIndexPage();
+    $.getJSON('data/ipsumArticles.json')
+      .done(parseData)
+      .fail(function() { console.log('Problem with data!'); })
+      .always(function() { console.log('Try to get JSON data from server.');
+      });
+
+    function parseData(data){
+      console.log('From AJAX: ', data);
+      // dataJS = JSON.parse(data);
+      dataJSON = data;
+      // console.log(dataJS);
+      // 2. Store the resulting JSON data with the .loadAll method,
+      Article.loadAll(dataJSON);
+      // 3. Cache the data in localStorage so next time we won't enter this "else" block (avoids hitting the server),
+      localStorage.dataJSON = JSON.stringify(dataJSON);
+      // 4. Render the index page (perhaps with an articleView method?).
+      articleView.initIndexPage();
+    };
   }
 };
