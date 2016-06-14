@@ -38,10 +38,9 @@ Article.loadAll = function(rawData) {
 Article.fetchAll = function() {
   if (localStorage.dataJSON) {
     // When rawData is already in localStorage, we can load it by calling the .loadAll function, and then render the index page (using the proper method on the articleView object).
-    var retrieveData = JSON.parse(localStorage.dataJSON);
-    console.table('Retrieved from localStorage: ', retrieveData);
+    console.log('Retrieved from localStorage: ', JSON.parse(localStorage.dataJSON));
     //DONE: What do we pass in here to the .loadAll function?
-    Article.loadAll(retrieveData);
+    Article.loadAll(JSON.parse(localStorage.dataJSON));
     //DONE: Change this fake method call to the correct one that will render the index page.
     articleView.initIndexPage();
   } else {
@@ -55,11 +54,10 @@ Article.fetchAll = function() {
 
     function parseData(data){
       console.log('From AJAX: ', data);
-      dataJSON = data;
       // 2. Store the resulting JSON data with the .loadAll method,
-      Article.loadAll(dataJSON);
+      Article.loadAll(data);
       // 3. Cache the data in localStorage so next time we won't enter this "else" block (avoids hitting the server),
-      localStorage.dataJSON = JSON.stringify(dataJSON);
+      localStorage.dataJSON = JSON.stringify(data);
       // 4. Render the index page (perhaps with an articleView method?).
       articleView.initIndexPage();
     };
