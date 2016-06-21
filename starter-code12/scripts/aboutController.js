@@ -4,9 +4,10 @@
   aboutController.index = function() {
     $('#about').show().siblings().hide();
 
-    // TODO: Call a function to load (AKA 'request') our repo data.
+    // DONE: Call a function to load (AKA 'request') our repo data.
     // Pass in a view function as a callback, so our repos will render after the data is loaded.
-
+    console.log('Calling repos.requestRepos');
+    repos.requestRepos(repoView.index);
   };
 
   module.aboutController = aboutController;
