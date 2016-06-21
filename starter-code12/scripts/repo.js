@@ -6,7 +6,7 @@
   repos.requestRepos = function(callback) {
     // DONE: How would you like to fetch your repos? Don't forget to call the callback.
     // Hint: What did you learn on Day 6? Use the method that lets you send a HEAD
-    $.getJSON('https://api.github.com/users/lizziegooding/repos', function(json){
+    $.getJSON('https://api.github.com/user/repos?access_token=' + githubToken, function(json){
       repos.all = json;
       console.log('Repos.all: ', repos.all);
       // var JSONmap = json.map(repoView.render);
