@@ -4,8 +4,15 @@
   repos.all = [];
 
   repos.requestRepos = function(callback) {
-    // TODO: How would you like to fetch your repos? Don't forget to call the callback.
+    // DONE: How would you like to fetch your repos? Don't forget to call the callback.
     // Hint: What did you learn on Day 6? Use the method that lets you send a HEAD
+    $.getJSON('https://api.github.com/users/lizziegooding/repos', function(json){
+      repos.all = json;
+      console.log('Repos.all: ', repos.all);
+      // var JSONmap = json.map(repoView.render);
+      // console.log(JSONmap);
+      callback();
+    });
   };
 
   // DONE: Model method that filters the full collection for repos with a particular attribute.

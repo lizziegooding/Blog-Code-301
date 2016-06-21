@@ -9,9 +9,10 @@
     $about.show().siblings().hide();
   };
 
-  // TODO: Remember that new Handlebars template? Let's compile it!
+  // DONE: Remember that new Handlebars template? Let's compile it!
   // Save the result in this `render` variable.
-  var render;
+  var render = Handlebars.compile($('#repo-template').html());
+  console.log('render: ', render);
 
   // DONE: If all the data is loaded, we can prep the UI and render the repos.
   repoView.index = function() {
@@ -19,9 +20,15 @@
 
     // The jQuery `append` method lets us append an entire array of HTML elements at once,
     // So we can use a little FP to transform our data-set into DOM nodes:
+    // console.log('Trying to append: ',repos.all.map(render));
+    // $('#about ul').append(render({name: 'Hello'}));
+    // $('#about ul').append(render(repos.all[0]));
     $('#about ul').append(
       repos.with('name').map(render)
     );
+    // $('#about ul').append([render(repos.all[0]), render(repos.all[1])]);
+    // $('#about ul').append(['<p>hello</p>', '<p>Bye</p>']);
+
   };
 
   module.repoView = repoView;
