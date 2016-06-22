@@ -5,3 +5,9 @@ var SMx = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit,';
 console.log(x.split(' ').length);
 
 console.log(SMx.split(' ').length);
+
+(function() {console.log('Example IIFE invoked.'); }());
+(function() {console.log('Other example IIFE invoked.');})(); // But this one works just as well
+console.log(window);
+console.log(window.x);
+console.log(window.SMx);
