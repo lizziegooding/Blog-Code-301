@@ -15,6 +15,7 @@
       //In routes.js, next() calls articlesController.index, a view function
       next();
     };
+
     Article.findWhere('id', ctx.params.id, articleData);
   };
 
@@ -25,7 +26,7 @@
       ctx.articles = articlesByAuthor;
       next();
     };
-
+    //Article.findWhere runs first and takes a field, value, and callback parameter. It queries the source data via SQL where, in this instance, the article object has the author given after the /articles/author/ path. ctx.params.authorName is part of page.js and finds the /:authorName specified in the URL extension
     Article.findWhere('author', ctx.params.authorName.replace('+', ' '), authorData);
   };
 
