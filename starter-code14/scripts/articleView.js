@@ -5,20 +5,23 @@
   var render = function(article) {
     var template = Handlebars.compile($('#article-template').text());
 
-    article.daysAgo = parseInt((new Date() - new Date(article.publishedOn))/60/60/24/1000);
+    article.daysAgo = parseInt((new Date() - new Date(article.publishedOn)) / 60 / 60 / 24 / 1000);
     article.publishStatus = article.publishedOn ? 'published ' + article.daysAgo + ' days ago' : '(draft)';
     article.body = marked(article.body);
 
     return template(article);
   };
 
-  // COMMENT: What does this method do?  What is it's execution path?
+  // Comment: What does this method do?  What is it's execution path?
+  //Populates the author filter with author names array. .populateFilters is called within articleView.index
   articleView.populateFilters = function() {
     var options,
+    //Compile options template
       template = Handlebars.compile($('#option-template').text());
 
     // Example of using model method with FP, synchronous approach:
     // NB: This method is dependant on info being in the DOM. Only authors of shown articles are loaded.
+    //For all author names in the array allAuthors, pass each element through template function, set val attribute equal to the author's name
     options = Article.allAuthors().map(function(author) { return template({val: author}); });
     if ($('#author-filter option').length < 2) { // Prevent duplication
       $('#author-filter').append(options);
@@ -37,10 +40,13 @@
     });
   };
 
-  // COMMENT: What does this method do?  What is it's execution path?
+  // Comment: What does this method do?  What is it's execution path?
+  //#filters event handler listens for a change or a select. This refers to the authors or categories filters that was changed/selected. .handleFilters is called within articleView.index
   articleView.handleFilters = function() {
     $('#filters').on('change', 'select', function() {
+      //Replaces '-filter' string in the id with an empty string. Now resource = article or category
       resource = this.id.replace('-filter', '');
+      //resource is now used to specify the page url: category or author + / + selected value with spaces replaced by a '+'
       page('/' + resource + '/' + $(this).val().replace(/\W+/g, '+')); // Replace any/all whitespace with a +
     });
   };
@@ -117,17 +123,20 @@
     $('#article-json').val(JSON.stringify(article) + ',');
   };
 
-  // COMMENT: What does this method do?  What is it's execution path?
+  // Comment: What does this method do?  What is it's execution path?
+  //Main rendering function. Called in articlesController.index
+  //Hides all articles elements
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
-
+    //Clear out all existing <article>s within #articles
     $('#articles article').remove();
+    //Render articles objects passed as argument and append to #articles
     articles.forEach(function(a) {
       $('#articles').append(render(a));
     });
-
+    //Call populateFilters
     articleView.populateFilters();
-    // COMMENT: What does this method do?  What is it's execution path?
+    // Comment: What does this method do?  What is it's execution path?-- see above where handleFilters is defined
     articleView.handleFilters();
 
     // DONE: Replace setTeasers with just the truncation logic, if needed:
