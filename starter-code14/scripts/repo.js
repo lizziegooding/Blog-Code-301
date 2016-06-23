@@ -15,12 +15,12 @@
   //$.get(), $.getJSON(), and $.ajax() all retrieve data using an AJAX call. They differ in their specificity; $.getJSON is the simplest call and comes with preset assumptions, including that the data it is retrieving is in JSON format. $.get() is more customizable and doesn't assume the data comes in JSON format. $.ajax() is the most customizable and takes an object with necessary parameters as an argument as opposed to just parameter arguments.
   //No callbacks would run if AJAX was unable to retreive data from the server
 
-  //Create a .with method for the repos object which, given an attribute, filters the repos.all array and only returns the articles with the given attribute
+  //Create a .with method for the repos object which, given an attribute, filters the repos.all array and only returns the repos with the given attribute
   repos.with = function(attr) {
     return repos.all.filter(function(repo) { return repo[attr]; });
   };
 
-  // repos.all is an array of article objects
+  // repos.all is an array of repo objects
   // .filter() takes a function as an argument and returns an array that meets the requirements specified in the function. In this case, filter will return an array of objects which contain the attr parameter as an attribute
   // The anonymous function's param repo refers to each element within the repos.all array
 
